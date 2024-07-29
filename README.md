@@ -1,5 +1,10 @@
 # ZDJ_Simulation
 
+仿真模型库基于python3编写，需要正常使用，请先确保以下python包正常安装：  
+    1. simpy  
+    2. flask  
+    3. sys  
+ 
 MAIN.py为主文件，主要功能为：  
     1. 接收并解析传过来的json数据  
     2. 将解析完的json数据传入仿真模型并开启仿真  
