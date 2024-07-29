@@ -2,7 +2,8 @@
 
 调用时请传入URL与端口号
 
-比如，将数据发送到'http://localhost:5000/process-data'，启动python脚本时：
+比如，将数据发送到'http://localhost:5000/process-data'
+启动python脚本时：
 
 python MAIN.py http://localhost 5000
 
