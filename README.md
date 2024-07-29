@@ -7,11 +7,11 @@ MAIN.py为主文件，主要功能为：
 
 ZDJ.py为折叠机仿真的类文件
 
+post_json.py为向MAIN.py发送"AI接收数据结构新.json"格式的json数据，为了测试MAIN.py是否能正常接收并解析json数据
 
+调用时只需要运行MAIN.py脚本，但请传入URL与端口号
 
-调用时请传入URL与端口号
-
-比如，将数据发送到'http://localhost:5000/process-data'  
+比如，像post_json.py中将数据发送到'http://localhost:5000/process-data'  
 http://localhost 表示服务器在本地主机上运行。
 5000 表示服务器监听的端口号是5000。
 /process-data 是服务器上用来处理数据的具体路径。
@@ -22,7 +22,7 @@ python MAIN.py http://localhost 5000
 
 MAIN.py的路径设置为默认路径/process-data
 
-请先启动python脚本，再向脚本发送json数据，如果能够正常仿真运行，会返回
+请先启动python脚本，再向脚本发送json数据，如果能够正常接收json数据并仿真，会返回
     response_data={  
       "list": [  
         {  
@@ -39,7 +39,7 @@ MAIN.py的路径设置为默认路径/process-data
         }  
       ]  
     }  
-  的json文件。
+  的json数据。
 
 
 
