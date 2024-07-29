@@ -80,7 +80,7 @@ def main():
     port = int(sys.argv[2])
 
     print(f"Starting Flask server at {url}:{port}")
-    app.run(debug=True, port=port)
+    app.run(host='0.0.0.0', debug=True, port=port)
 
 
 if __name__ == '__main__':
