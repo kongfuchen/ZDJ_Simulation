@@ -1,5 +1,11 @@
 # ZDJ_Simulation
 
+MAIN.py为主文件，主要功能为：
+    1. 接收并解析传过来的json数据
+    2. 将解析完的json数据传入仿真模型并开启仿真
+    3. 以json数据格式返回仿真结果
+
+
 调用时请传入URL与端口号
 
 比如，将数据发送到'http://localhost:5000/process-data'  
