@@ -15,7 +15,7 @@ MAIN.py的路径设置为默认路径/process-data
 
 请先启动python脚本，再向脚本发送json数据，如果能够正常仿真运行，会返回
     response_data={
-      "list": [
+      \\"list": [
         {
           #方案编码
           "simulationSchemeCode": "1",
