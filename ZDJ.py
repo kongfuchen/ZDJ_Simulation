@@ -50,12 +50,12 @@ def product_ctzd(env,zdj,INITIAL_LENGTH,ZDJ_SPEED_STYLE,TIME_One_DZ,TIME_SPEED_C
                     zdj.DATA_LIST_ZJ_RBS.append([env.now,NO_OF_ctzd])                   
                     env.process(convey(NO_OF_ctzd,zdj,env,TIME_ZD_MOVE))
                     # paper_change(INITIAL_LENGTH,zj_length,env,zdj)
-            #回传的仿真结果--原纸剩余长度
-            paper_change_trans(INITIAL_LENGTH,zj_length,env,zdj,SAMPLING_TIME,return_time_interval)
-            #回传的仿真结果--折叠机入包数
-            sim_result_trans(NO_OF_ctzd,env,zdj,return_time_interval,"186_D1544")
-            #回传的仿真结果--折叠机出包数
-            sim_result_trans_csb(zdj.zdj_cbs,env,zdj,return_time_interval,"190_D1710")
+        #回传的仿真结果--原纸剩余长度
+        paper_change_trans(INITIAL_LENGTH,zj_length,env,zdj,SAMPLING_TIME,return_time_interval)
+        #回传的仿真结果--折叠机入包数
+        sim_result_trans(NO_OF_ctzd,env,zdj,return_time_interval,"186_D1544")
+        #回传的仿真结果--折叠机出包数
+        sim_result_trans_csb(zdj.zdj_cbs,env,zdj,return_time_interval,"190_D1710")
 
 
              
