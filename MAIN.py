@@ -61,7 +61,7 @@ def handle_request():
     for signal in input_signals:
         if signal.get('applicationPropertyIdentifier') == '186_D2001' :
             ZDJ_SPEED_STYLE=1
-            TIME_SPEED_CHANGE = [ float(x) for x in signal.get('times') ] 
+            TIME_SPEED_CHANGE = [ float(x) for x in signal.get('times') ]
             SPEED_CHANGE = [ float(x)/60 for x in signal.get('values') ] 
         elif signal.get('applicationPropertyIdentifier') == 'processTime':
             ZDJ_SPEED_STYLE=0
@@ -75,29 +75,30 @@ def handle_request():
         elif signal.get('applicationPropertyIdentifier') == '150_D20318' and float(signal.get('value'))>10:
                 using_paper.append('150_D20318')
                 INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20320' and float(signal.get('value'))>10:
-                using_paper.append('150_D20320')
-                INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20328' and float(signal.get('value'))>10:
-                using_paper.append('150_D20328')
-                INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20322'and float(signal.get('value'))>10:
-                using_paper.append('150_D20322')
-                INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20324'and float(signal.get('value'))>10:
-                using_paper.append('150_D20324')
-                INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20326'and float(signal.get('value'))>10:
-                using_paper.append('150_D20326')
-                INITIAL_LENGTH.append(float(signal.get('value')))
-        elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
-                using_paper.append('150_D20330')
-                INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20320' and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20320')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20328' and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20328')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20322'and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20322')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20324'and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20324')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20326'and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20326')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        # elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
+        #         using_paper.append('150_D20330')
+        #         INITIAL_LENGTH.append(float(signal.get('value')))
         
     env=simpy.Environment()
     zdj= ZDJ.ZDJ()
     env.process(ZDJ.product_ctzd(env,zdj,INITIAL_LENGTH,ZDJ_SPEED_STYLE,TIME_One_DZ,TIME_SPEED_CHANGE,SPEED_CHANGE,NO_OF_SHEETS,LENGTH_OF_SHEETS,TIME_ZD_MOVE,return_time_interval))
     env.run(until=SIM_TIME)
+
 
     # 仿真结果json输出
     response_data={
@@ -110,7 +111,7 @@ def handle_request():
           #属性编码，折叠机入包数
           "applicationPropertyIdentifier": "186_D1544",
           #值
-          "values": [zdj.zdj_rbs_trans],
+          "values": [str(x) for x in zdj.zdj_rbs_trans],
         },
         {
           #方案编码
@@ -120,7 +121,7 @@ def handle_request():
           #属性编码，折叠机入包数
           "applicationPropertyIdentifier": "190_D1710",
           #值
-          "values": [zdj.zdj_cbs_trans],
+          "values": [str(x) for x in zdj.zdj_cbs_trans],
         }
       ]
     }
@@ -130,12 +131,12 @@ def handle_request():
             "simulationSchemeCode": "1",
             "entityIdentifier": "22_cx_D_zdj",
             "applicationPropertyIdentifier": using_paper[i],
-            "values": zdj.paperLength_list[i],
+            "values": [str(x) for x in zdj.paperLength_list[i]],
         })
 
-    print("折叠机入包数",zdj.DATA_LIST_ZJ_RBS)
-    print("折叠机出包数",zdj.zdj_cbs_list)
-    print("剩余原纸长度=",zdj.paperLength_list)
+    # print("折叠机入包数",zdj.DATA_LIST_ZJ_RBS)
+    # print("折叠机出包数",zdj.zdj_cbs_list)
+    # print("剩余原纸长度=",zdj.paperLength_list)
 
     return jsonify(response_data)
 
