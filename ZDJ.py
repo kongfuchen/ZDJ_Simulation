@@ -2,9 +2,9 @@ class ZDJ(object):
     def __init__(self) :
         self.zdj_cbs=0#折叠机出包数量
         self.zdj_cbs_list = [] #各长条折叠出包时刻
-        self.zdj_rbs_trans='0'#用于回传仿真结果的折叠机入包数量
-        self.zdj_cbs_trans='0'#用于回传仿真结果的折叠机出包数量
-        self.paperLength_list=[]#剩余米数
+        self.zdj_rbs_trans=[]#用于回传仿真结果的折叠机入包数量
+        self.zdj_cbs_trans=[]#用于回传仿真结果的折叠机出包数量
+        self.paperLength_list=[[],[]]#剩余米数
         self.DATA_LIST_ZJ_RBS = [] #各长条折叠入包时刻
         self.num_record_rbs=1#用于回传仿真结果的折叠机入包数量的计数
         self.num_record_cbs=1#用于回传仿真结果的折叠机出包数量的计数
@@ -21,7 +21,7 @@ def product_ctzd(env,zdj,INITIAL_LENGTH,ZDJ_SPEED_STYLE,TIME_One_DZ,TIME_SPEED_C
     current_speed=0#折叠机的当前速度
     # zdj.paperLength_list = INITIAL_LENGTH
     for i in range(len(INITIAL_LENGTH)):
-        zdj.paperLength_list.append(str(INITIAL_LENGTH[i]))
+        zdj.paperLength_list[i].append(INITIAL_LENGTH[i])
     
     while True:
         if ZDJ_SPEED_STYLE == 0:
@@ -80,25 +80,26 @@ def paper_change_trans(ini_length,zj_length,env,zdj,SAMPLING_TIME,return_time_in
     if env.now-return_time_interval*zdj.num_record_syms>=0:
         zdj.num_record_syms=zdj.num_record_syms+1
         for i in range(len(ini_length)):
-            zdj.paperLength_list[i] = zdj.paperLength_list[i]+","+str(ini_length[i]-zj_length*0.983)
+            zdj.paperLength_list[i].append(ini_length[i]-zj_length*0.983)
 
 def sim_result_trans(num,env,zdj,return_time_interval,type):
     
     if env.now-return_time_interval*zdj.num_record_rbs>=0: #待改进
         zdj.num_record_rbs=zdj.num_record_rbs+1
         if type=="186_D1544":
-            zdj.zdj_rbs_trans = zdj.zdj_rbs_trans+","+str(num)
+            zdj.zdj_rbs_trans.append(num)
         elif type=="190_D1710":
-            zdj.zdj_cbs_trans = zdj.zdj_cbs_trans+","+str(num)
+            zdj.zdj_cbs_trans.append(num)
 
 def sim_result_trans_csb(num,env,zdj,return_time_interval,type):
     
     if env.now-return_time_interval*zdj.num_record_cbs>=0: #待改进
         zdj.num_record_cbs=zdj.num_record_cbs+1
         if type=="186_D1544":
-            zdj.zdj_rbs_trans = zdj.zdj_rbs_trans+","+str(num)
+            zdj.zdj_rbs_trans.append(num)
         elif type=="190_D1710":
-            zdj.zdj_cbs_trans = zdj.zdj_cbs_trans+","+str(num)
+            zdj.zdj_cbs_trans.append(num)
+
 
         
   
