@@ -75,24 +75,24 @@ def handle_request():
         elif signal.get('applicationPropertyIdentifier') == '150_D20318' and float(signal.get('value'))>10:
                 using_paper.append('150_D20318')
                 INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20320' and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20320')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20328' and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20328')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20322'and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20322')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20324'and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20324')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20326'and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20326')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
-        # elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
-        #         using_paper.append('150_D20330')
-        #         INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20320' and float(signal.get('value'))>10:
+                using_paper.append('150_D20320')
+                INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20328' and float(signal.get('value'))>10:
+                using_paper.append('150_D20328')
+                INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20322'and float(signal.get('value'))>10:
+                using_paper.append('150_D20322')
+                INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20324'and float(signal.get('value'))>10:
+                using_paper.append('150_D20324')
+                INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20326'and float(signal.get('value'))>10:
+                using_paper.append('150_D20326')
+                INITIAL_LENGTH.append(float(signal.get('value')))
+        elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
+                using_paper.append('150_D20330')
+                INITIAL_LENGTH.append(float(signal.get('value')))
         
     env=simpy.Environment()
     zdj= ZDJ.ZDJ()
