@@ -4,7 +4,7 @@ class ZDJ(object):
         self.zdj_cbs_list = [] #各长条折叠出包时刻
         self.zdj_rbs_trans=[0]#用于回传仿真结果的折叠机入包数量
         self.zdj_cbs_trans=[0]#用于回传仿真结果的折叠机出包数量
-        self.paperLength_list=[[],[]]#剩余米数
+        self.paperLength_list=[[],[],[],[],[],[],[],[]]#剩余米数
         self.DATA_LIST_ZJ_RBS = [] #各长条折叠入包时刻
         self.num_record_rbs=1#用于回传仿真结果的折叠机入包数量的计数
         self.num_record_cbs=1#用于回传仿真结果的折叠机出包数量的计数
