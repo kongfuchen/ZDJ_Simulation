@@ -55,7 +55,7 @@ def product_ctzd(env,zdj,INITIAL_LENGTH,ZDJ_SPEED_STYLE,TIME_One_DZ,TIME_SPEED_C
         #回传的仿真结果--折叠机入包数
         sim_result_trans(NO_OF_ctzd,env,zdj,return_time_interval,"186_D1544")
         #回传的仿真结果--折叠机出包数
-        sim_result_trans_csb(zdj.zdj_cbs,env,zdj,return_time_interval,"190_D1710")
+        sim_result_trans(zdj.zdj_cbs,env,zdj,return_time_interval,"190_D1710")
 
 
              
@@ -81,23 +81,15 @@ def paper_change_trans(ini_length,zj_length,env,zdj,SAMPLING_TIME,return_time_in
         zdj.num_record_syms=zdj.num_record_syms+1
         for i in range(len(ini_length)):
             zdj.paperLength_list[i].append(ini_length[i]-zj_length*0.983)
-
+#折叠机入出包数处理
 def sim_result_trans(num,env,zdj,return_time_interval,type):
-    
-    if env.now-return_time_interval*zdj.num_record_rbs>=0: #待改进
-        zdj.num_record_rbs=zdj.num_record_rbs+1
-        if type=="186_D1544":
+    if type=="186_D1544":
+        if env.now-return_time_interval*zdj.num_record_rbs>=0:
+            zdj.num_record_rbs=zdj.num_record_rbs+1
             zdj.zdj_rbs_trans.append(num)
-        elif type=="190_D1710":
-            zdj.zdj_cbs_trans.append(num)
-
-def sim_result_trans_csb(num,env,zdj,return_time_interval,type):
-    
-    if env.now-return_time_interval*zdj.num_record_cbs>=0: #待改进
-        zdj.num_record_cbs=zdj.num_record_cbs+1
-        if type=="186_D1544":
-            zdj.zdj_rbs_trans.append(num)
-        elif type=="190_D1710":
+    elif type=="190_D1710":
+        if env.now-return_time_interval*zdj.num_record_cbs>=0:
+            zdj.num_record_cbs=zdj.num_record_cbs+1
             zdj.zdj_cbs_trans.append(num)
 
 
