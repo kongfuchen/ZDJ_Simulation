@@ -45,31 +45,15 @@ def handle_request():
 
 
     #处理接收的数据
+    init_signals = data.get('init', {}).get('signalList', [])
     control_signals = data.get('control', {}).get('signalList', [])
     input_signals = data.get('input', {}).get('signalList', [])
     SIM_TIME = float(data.get('time'))
     return_time_interval = float(data.get('timeInterval'))
 
-
-
-    for signal in control_signals:
-        if signal.get('applicationPropertyIdentifier') == 'noOfSheets':
-            NO_OF_SHEETS = float(signal.get('value'))
-        elif signal.get('applicationPropertyIdentifier') == 'lengthOfSheet':
-            LENGTH_OF_SHEETS = float(signal.get('value'))/1000
-    
-    for signal in input_signals:
-        if signal.get('applicationPropertyIdentifier') == '186_D2001' :
-            ZDJ_SPEED_STYLE=1
-            TIME_SPEED_CHANGE = [ float(x) for x in signal.get('times') ]
-            SPEED_CHANGE = [ float(x)/60 for x in signal.get('values') ] 
-        elif signal.get('applicationPropertyIdentifier') == 'processTime':
-            ZDJ_SPEED_STYLE=0
-            TIME_One_DZ = float(signal.get('value'))
-        elif signal.get('applicationPropertyIdentifier') == 'transportTime':
-            TIME_ZD_MOVE = float(signal.get('value'))
-        
-        elif signal.get('applicationPropertyIdentifier') == '150_D20316' and float(signal.get('value'))>10:
+    #获取各尾架当前剩余米数
+    for signal in init_signals:
+        if signal.get('applicationPropertyIdentifier') == '150_D20316' and float(signal.get('value'))>10:
                 using_paper.append('150_D20316')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20318' and float(signal.get('value'))>10:
@@ -93,6 +77,30 @@ def handle_request():
         elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
                 using_paper.append('150_D20330')
                 INITIAL_LENGTH.append(float(signal.get('value')))
+        
+
+
+    #获取产品规格,中文名称与英文名称弄混了
+    for signal in control_signals:
+        if signal.get('applicationPropertyIdentifier') == 'noOfSheets':
+            NO_OF_SHEETS = float(signal.get('value'))/1000
+        elif signal.get('applicationPropertyIdentifier') == 'lengthOfSheet':
+            LENGTH_OF_SHEETS = float(signal.get('value'))
+    
+    #获取折叠机处理速度
+    for signal in input_signals:
+        if signal.get('applicationPropertyIdentifier') == '186_D2001' and signal.get('dataSourceType')=='iot':
+            ZDJ_SPEED_STYLE=1
+            print('123')
+            TIME_SPEED_CHANGE = [ float(x) for x in signal.get('times') ]
+            SPEED_CHANGE = [ float(x)/60 for x in signal.get('values') ] 
+        elif signal.get('applicationPropertyIdentifier') == '186_D2001' and signal.get('dataSourceType')=='person':
+            ZDJ_SPEED_STYLE=0
+            TIME_One_DZ = float(signal.get('value'))
+        elif signal.get('applicationPropertyIdentifier') == 'transportTime':
+            TIME_ZD_MOVE = float(signal.get('value'))
+        
+        
         
     env=simpy.Environment()
     zdj= ZDJ.ZDJ()
