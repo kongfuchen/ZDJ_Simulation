@@ -91,12 +91,14 @@ def handle_request():
     for signal in input_signals:
         if signal.get('applicationPropertyIdentifier') == '186_D2001' and signal.get('dataSourceType')=='iot':
             ZDJ_SPEED_STYLE=1
-            print('123')
+            # print('123')
             TIME_SPEED_CHANGE = [ float(x) for x in signal.get('times') ]
             SPEED_CHANGE = [ float(x)/60 for x in signal.get('values') ] 
         elif signal.get('applicationPropertyIdentifier') == '186_D2001' and signal.get('dataSourceType')=='person':
-            ZDJ_SPEED_STYLE=0
-            TIME_One_DZ = float(signal.get('value'))
+            ZDJ_SPEED_STYLE=1
+            # TIME_One_DZ = float(signal.get('value'))
+            TIME_SPEED_CHANGE = [0]
+            SPEED_CHANGE = [float(signal.get('value'))/60]
         elif signal.get('applicationPropertyIdentifier') == 'transportTime':
             TIME_ZD_MOVE = float(signal.get('value'))
         
