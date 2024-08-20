@@ -45,14 +45,14 @@ def handle_request():
 
 
     #处理接收的数据
-    init_signals = data.get('init', {}).get('signalList', [])
+    # init_signals = data.get('init', {}).get('signalList', [])
     control_signals = data.get('control', {}).get('signalList', [])
     input_signals = data.get('input', {}).get('signalList', [])
     SIM_TIME = float(data.get('time'))
     return_time_interval = float(data.get('timeInterval'))
 
     #获取各尾架当前剩余米数
-    for signal in init_signals:
+    for signal in input_signals:
         if signal.get('applicationPropertyIdentifier') == '150_D20316' and float(signal.get('value'))>10:
                 using_paper.append('150_D20316')
                 INITIAL_LENGTH.append(float(signal.get('value')))
