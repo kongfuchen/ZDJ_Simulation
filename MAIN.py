@@ -39,7 +39,8 @@ def handle_request():
     TIME_ZD_MOVE=None#长条纸叠在折叠机移动需要的时间
     TIME_SPEED_CHANGE=[]
     SPEED_CHANGE=[]
-    using_paper=[]#参与生产的原纸尾架
+    using_paper=[]#参与生产的原纸尾架标识
+    using_yzj = []  # 参与生产的原纸尾架
     INITIAL_LENGTH=[]#参与生产的原纸尾架的剩余原纸长度
     
 
@@ -55,27 +56,35 @@ def handle_request():
     for signal in input_signals:
         if signal.get('applicationPropertyIdentifier') == '150_D20316' and float(signal.get('value'))>10:
                 using_paper.append('150_D20316')
+                using_yzj.append('22_cx_D_yzj_1')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20318' and float(signal.get('value'))>10:
                 using_paper.append('150_D20318')
+                using_yzj.append('22_cx_D_yzj_2')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20320' and float(signal.get('value'))>10:
                 using_paper.append('150_D20320')
+                using_yzj.append('22_cx_D_yzj_3')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20328' and float(signal.get('value'))>10:
                 using_paper.append('150_D20328')
+                using_yzj.append('22_cx_D_yzj_4')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20322'and float(signal.get('value'))>10:
                 using_paper.append('150_D20322')
+                using_yzj.append('22_cx_D_yzj_5')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20324'and float(signal.get('value'))>10:
                 using_paper.append('150_D20324')
+                using_yzj.append('22_cx_D_yzj_6')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20326'and float(signal.get('value'))>10:
                 using_paper.append('150_D20326')
+                using_yzj.append('22_cx_D_yzj_7')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         elif signal.get('applicationPropertyIdentifier') == '150_D20330'and float(signal.get('value'))>10:
                 using_paper.append('150_D20330')
+                using_yzj.append('22_cx_D_yzj_8')
                 INITIAL_LENGTH.append(float(signal.get('value')))
         
 
@@ -139,7 +148,7 @@ def handle_request():
     for i in range(len(using_paper)):
         response_data['list'].append({
             "simulationSchemeCode": "1",
-            "entityIdentifier": "22_cx_D_zdj",
+            "entityIdentifier": using_yzj[i],
             "applicationPropertyIdentifier": using_paper[i],
             "values": [str(x) for x in zdj.paperLength_list[i]],
         })
@@ -170,3 +179,4 @@ if __name__ == '__main__':
 
  
  
+
